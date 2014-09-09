@@ -1,0 +1,16 @@
+<% @mess.each do |message| %>
+    <br/>
+    <div style="width: 80%; background: #000; text-align: left; min-height: 150px; border: 1px solid #ffffff; padding: 5px;">
+        <div style="height: 50px;">
+            <h3 style="float: left;"><%= message.split('*:*')[2] %></h3>
+            <p style="float: right;"><%= message.split('*:*')[1] %></p>
+        </div>
+        <div>
+            <p style="margin-top: 10px; margin-left: 5px; margin-right: 5px; text-align: left;"><%= message.split('*:*')[3] %></p>
+            <p style="text-align: left;">
+              <a href="./pm/<%= message.split('*:*')[2] %>/<%= message.split('*:*')[1] %>/delete">Удалить</a>
+            </p>
+            <p style="text-align: right;"><%= message.split('*:*')[0] %></p>
+        </div>
+    </div>
+<% end %>

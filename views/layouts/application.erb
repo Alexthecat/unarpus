@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Unarp.us</title>
+        <!--Bootstrap-->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <link href="<%= HOST %>/css/bootstrap.css" rel="stylesheet">
+        <script src="<%= HOST %>/js/bootstrap.js"></script>
+        <script src="<%= HOST %>/js/bootstrap.min.js"></script>
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </head>
+    <body style="color: white; background: url('http://unarp.us/img/fon2.jpg') 100% 100% no-repeat fixed rgb(18,18,18);">
+    <div class="jumbotron">
+      <div class="row">
+        <div class="col-lg-4">
+          <img src="<%= HOST %>/img/head.jpg" class="img">
+        </div>
+      </div>
+    </div>
+    <div style="display: inline-block; background: url('<%= HOST %>/images/bg2.png'); min-height: 100%; width: 100%;">
+        <div style="width: 100%;">
+            <div class="navbar navbar-margin-top navbar-inverse">
+                <nav class="navbar-inner">
+                  <ul class="nav">
+                    <li class="divider-horizontal">
+                      <a href="<%= HOST %>"><button class="btn-sample btn-large ng-click="status.open = !status.open"">Главная</button></a>
+                    </li>
+                    <li><a href="<%= HOST %>/rules"><p><button class="btn-sample" ng-click="status.open = !status.open">Правила</button></p></a></li>
+                    <li><a href="<%= HOST %>/forum"><p><button class="btn-sample" ng-click="status.open = !status.open">Форум</button></p></a></li>
+                    <% if @authorized %>
+                    <li><a href="<%= HOST %>/ichiraku"><p><button class="btn-sample" ng-click="status.open = !status.open">Ичираку</button></p></a></li>
+                    <li><a href="<%= HOST %>/hospital"><p><button class="btn-sample" ng-click="status.open = !status.open">Больница</button></p></a></li>
+                    <li><a href="<%= HOST %>/logout"><p><button class="btn-sample" ng-click="status.open = !status.open">Выход</button></p></a></li>
+                    <% else %>
+                    <li><a href="<%= HOST %>/register"><p><button class="btn-sample" ng-click="status.open = !status.open">Регистрация</button></p></a></li>
+                    <li><a href="<%= HOST %>/login"><p><button class="btn-sample" ng-click="status.open = !status.open">Вход</button></p></a></li>
+                    <% end %>
+                  </ul>
+                  <form class="navbar-form pull-right">
+                    <input type="text" class="span2 search-query" placeholder="Введите имя пользователя" />
+                    <button type="submit" class="btn-custom">Поиск</button>
+                  </form>
+                </nav>
+            </div>
+        </div>
+        <div style="float: left; font-size: 12pt; width: 14%; min-height: 10px; text-align: center;">
+            <% if @authorized %>
+                <div style="height: 400px; width: 100%; color: white;">
+                    <h3>Ваш профиль:</h3>
+                    <img src="<%= @image %>" style="margin: 10px; background: white; max-width: 230px; height: 200px;" /><br/><br/>
+                    <p>Здоровье: <%= @hp %></p>
+                    <p>Чакра: <%= @chakra %></p>
+                    <p>Энергия: <%= @energy %></p>
+                    <% if check_pm != '(0)' %>
+                    <br/><a href="<%= "#{HOST}#{@url}" %>/pm">Вам письмо!</a><br/><br/>
+                    <% end %>
+                    <a href="<%= "#{HOST}#{@url}" %>">Развернутый профиль</a><br/>
+                    <p>Имя: <%= @nickname %></p>
+                    <p>Деревня: <%= @land %></p>
+                    <p>Ранг: <%= @rank %></p>
+                </div>
+            <% end %>
+        </div>
+        <div style="float: left; width: 70%; min-height: 10px;">
+          <center><%= yield %></center>
+        </div>
+        <div style="float: left; width: 14%; min-height: 10px; text-align: center;">
+            <div style="min-height: 400px; width: 100%; color: white;">
+                <% File.read('./data/lands.txt').each_line do |line| %>
+                <p><%= line.split('*:*')[0] %></p>
+                <p>Население: <%= line.split('*:*')[1] %> чел.</p>
+                <p>Ценность: <%= line.split('*:*')[2] %> рё</p>
+                <p>Каге: <%= line.split('*:*')[3] %></p>
+                <hr style="width: 100%">
+                <% end %>
+            </div>
+            <div style="height: 250px; width: 100%; color: white;">
+                <h3>Самый популярный бой:</h3>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

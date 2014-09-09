@@ -1,0 +1,76 @@
+<script type="text/javascript">function insertText(ID,t){var e=document.getElementById(ID);e.value+=t;}</script>
+<br/>
+<% num = 0; i = @text_info[2]*10; %>
+<% (0+i...@text_info[3]+i).each do |line_num| %>
+    <% line = @text_info[0][line_num] %>
+    <% num += 1 %>
+    <div style="display: inline-block; width: 96%; color: white;">
+        <div style="float: left; background: #000; text-align: center; width: 21%; border: 1px solid #ffffff; min-height: 400px; max-height: 750px;">
+            <% user_info = get_info(line.split('*:*')[0].split('(-)')[0]) %>
+            <span style="font-size: 13pt;"><a href="<%= HOST %>/info/<%= line.split('*:*')[0].split('(-)')[0] %>"><%= line.split('*:*')[0].split('(-)')[0] %></a></span>
+            <img src="<%= check_online(line.split('*:*')[0].split('(-)')[0]) %>" style="margin-top: -5px; height: 10px;"/>
+            <br/>
+            <img src="<%= user_info[0] %>" style="height: 160px;"/>
+            <br/>
+            <p style="margin-top: 0px;">
+                Имя: <%= user_info[1] %><br/>
+                <img src="<%= rank_img(user_info[3]) %>" style="height: 50px;"/><br/>
+                <%= "<img src='http://anime-naruto.ucoz.kz/Grup/admin.png'/><br/>" if @authorized && get_info(line.split('*:*')[0].split('(-)')[0])[9] %>
+                Селение: <%= user_info[2] %><br/>
+            </p>
+        </div>
+        <div style="float: right; background: #000; overflow:auto; text-align: left; width: 78%; border: 1px solid #ffffff; min-height: 400px; max-height: 750px;">
+            <div style="margin-top: 3px; margin-right: 5px; height: 20px; border-bottom: 1px solid #ffffff;">
+                <table style="width: 100%;">
+                    <% if @authorized && (admin? || @login.chomp == line.split('*:*')[0].split('(-)')[0]) %>
+                        <td>
+                            <p style="text-align: left; margin-top: -3px;">
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="<%="#{HOST}/forum/#{request.params[:land]}/#{request.params[:place]}/edit/#{num + @text_info[2]*10}/#{line.split('*:*')[0].split('(-)')[0]}"%>">
+                                    <img src="http://www.iconsdb.com/icons/preview/caribbean-blue/edit-9-xxl.png" style="height: 19px;"/>
+                                </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="<%="#{HOST}/forum/#{request.params[:land]}/#{request.params[:place]}/delete/#{num + @text_info[2]*10}/#{line.split('*:*')[0].split('(-)')[0]}"%>">
+                                    <img src="http://img4.wikia.nocookie.net/__cb20130213200639/destiny2579/images/b/b1/Delete_Icon.png" style="height: 19px;"/>
+                                </a>
+                            </p>
+                        </td>
+                    <% end %>
+                    <td><p style="text-align: right;"><%= line.split('*:*')[2] %></p></td>
+                </table>
+            </div>
+            <p style="margin: 5px;"><%= line.split('*:*')[1].gsub('|||', '<br/>') %></p>
+        </div>
+    </div>
+    <br/><br/>
+<% end %>
+<br/><br/>
+<div style="min-width: 60%; text-align: center; font-size: 14pt;">
+    <% if  @text_info[2] || @text_info[1] > 10 %>
+        <p>Вы на странице: <%= request.params[:start].to_i + 1 %></p>
+        <% if @text_info[1]/10.0.ceil > @text_info[2]/10.0 %>
+                <% p page = (@text_info[1]/10.0 + 1).round %>
+        <% else %>
+                <% p page = @text_info[1]/10.0 %>
+        <% end %>
+        <% (1..page).each do |number| %>
+            <a href="<%= "#{HOST}/forum/#{request.params[:land]}/#{request.params[:place]}/#{number - 1}" %>"><%= number %></a>
+        <% end %>
+    <% end %>
+    <br/><br/>
+    <% if @authorized && (session['hospital_fee'].nil? || request.params[:land] == 'common' || request.params[:land] == 'community' || request.params[:land] == 'character_creation' || request.params[:land] == 'djutsu') %>
+        <div style="margin-left: 20%; width: 60%; text-align: center;">
+            <input type="button" id="add_text" value="[color=][/color]" onClick="insertText('textarr', '[color=][/color]');return false;">
+            <input type="button" id="add_text" value="[b][/b]" onClick="insertText('textarr', '[b][/b]');return false;">
+            <input type="button" id="add_text" value="[i][/i]" onClick="insertText('textarr', '[i][/i]');return false;">
+            <input type="button" id="add_text" value="[u][/u]" onClick="insertText('textarr', '[u][/u]');return false;">
+            <input type="button" id="add_text" value="[img][/img]" onClick="insertText('textarr', '[img][/img]');return false;">
+            <form action="<%= "#{HOST}/forum/#{request.params[:land]}/#{request.params[:place]}" %>" method="POST">
+                <textarea style="resize: none; width: 100%;" name="mess" rows="20" placeholder="Ваше сообщение" id="textarr" required="true"></textarea>
+                <br/><input type="submit" value="Отправить!">
+            </form>
+        </div>
+    <% elsif @authorized && !session['hospital_fee'].nil? %>
+        <h3 style="margin-left: 20%; width: 60%; text-align: center; color: white;">Вы находитесь на лечении, пожалуйста, дождитесь окончания!</h3>
+    <% end %>
+</div>

@@ -1,0 +1,29 @@
+<br/><br/>
+<% if @login.chomp == request.params[:login] && !admin? %>
+    <form action="" method="POST">
+      <table>
+        <tr><td><p>Аватар: </p></td><td><input type="text" name="img" value="<%= @image %>"></td></tr>
+        <tr><td><p>Имя: </p></td><td><input type="text" name="name" value="<%= @nickname %>"></td></tr>
+        <tr><td><p>Напарник: </p></td><td><input type="text" name="name" value="<%= @comrade %>"></td></tr>
+        <tr><td></td><td><input type="submit" value="Сохранить"></td></tr>
+      </table>
+    </form>
+<% elsif admin? %>
+    <form action="" method="POST">
+      <table>
+          <tr><td><p>Аватар: </p></td><td><input type="text" name="img" value="<%= @info[0] %>"></td></tr>
+          <tr><td><p>Имя: </p></td><td><input type="text" name="name" value="<%= @info[1] %>"></td></tr>
+          <tr><td><p>Селение: </p></td><td><input type="text" name="land" value="<%= @info[2] %>"></td></tr>
+          <tr><td><p>Ранг: </p></td><td><input type="text" name="rank" value="<%= @info[3] %>"></td></tr>
+          <tr><td><p>Деньги: </p></td><td><input type="text" name="money" value="<%= @info[4] %>"></td></tr>
+          <tr><td><p>Биджу: </p></td><td><input type="text" name="bidju" value="<%= @info[6] %>"></td></tr>
+          <tr><td><p>Кеккей-Генкай: </p></td><td><input type="text" name="kg" value="<%= @info[7] %>"></td></tr>
+          <tr><td><p>Напарник: </p></td><td><input type="text" name="comrade" value="<%= @info[8] %>"></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td><p>Здоровье: </p></td><td><input type="text" name="health" value="<%= @stat[0] %>"></td></tr>
+          <tr><td><p>Чакра: </p></td><td><input type="text" name="chakra" value="<%= @stat[1] %>"></td></tr>
+          <tr><td><p>Энергия: </p></td><td><input type="text" name="energy" value="<%= @stat[2] %>"></td></tr>
+          <tr><td></td><td><input type="submit" value="Сохранить"></td></tr>
+      </table>
+    </form>
+<% end %>

@@ -1,0 +1,12 @@
+<script type="text/javascript">function insertText(ID,t){var e=document.getElementById(ID);e.value+=t;}</script>
+<h3>Редактирование записи</h3>
+<input type="button" id="add_text" value="[b][/b]" onClick="insertText('textarea', '[b][/b]');return false;">
+<input type="button" id="add_text" value="[i][/i]" onClick="insertText('textarea', '[i][/i]');return false;">
+<input type="button" id="add_text" value="[u][/u]" onClick="insertText('textarea', '[u][/u]');return false;">
+<input type="button" id="add_text" value="[img][/img]" onClick="insertText('textarea', '[img][/img]');return false;">
+<br/>
+<form action="" method="POST">
+  <textarea id="textarea" name="post" rows="30" style="resize: none; width: 80%;"><%= back_to_forum_format(@text) %></textarea>
+  <br/>
+  <input type="submit" value="Отправить!">
+</form>

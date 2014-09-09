@@ -1,0 +1,1 @@
+локации снега*:*snow_locations/Dragons_nest***Драконье гнездо(-)snow_locations/Caves***Пещеры(-)snow_locations/Northen_forest***Северный лес(-)snow_locations/Frosen_lake***Замерзшее озеро(-)snow_locations/Hot_springs***Горячие источники

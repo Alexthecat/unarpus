@@ -1,0 +1,1 @@
+локации облака*:*cloud_locations/Elders_library_ruins***Руины библиотеки древних(-)cloud_locations/Crystal_caves***Пещеры кристаллов(-)cloud_locations/Cloud_temple***Облачный храм(-)cloud_locations/Sapphire_lake***Озеро сапфиров(-)cloud_locations/Forest_of_secrets***Лес секретов

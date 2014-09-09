@@ -1,0 +1,63 @@
+<br/>
+<% if @authorized && @login.chomp != request.params[:login] %>
+    <p style="text-align: right; margin-right: 10px;"><a href="<%= "#{HOST}/info/#{@login}/pm/#{request.params[:login]}" %>">Новое ЛС</a></p>
+<% else %>
+    <br/><br/>
+<% end %>
+<table>
+  <td style="width: 300px; text-align: center;">
+    <img src="<%= @info[0] %>" style="margin: 10px; background: white; height: 200px;" /><br/>
+    <p>Здоровье: <%= @stat[0] %></p>
+    <p>Чакра: <%= @stat[1] %></p>
+    <p>Энергия: <%= @stat[2] %></p>
+    <% if @authorized && (admin? || @login.chomp == request.params[:login]) %>
+        <p style="text-align: center;">
+            <% if @login.chomp == request.params[:login] %>
+                <a href="./<%= request.params[:login] %>/pm">Личные сообщения <%= check_pm %></a>
+                <br/>
+            <% end %>
+            <a href="./<%= request.params[:login] %>/edit">Изменить профиль</a>
+            <br/>
+        </p>
+    <% end %>
+  </td>
+  <td style="width: 300px;">
+    <h3>
+        Имя: <%= @info[1] %><br/><br/>
+        Деревня: <%= @info[2] %><br/><br/>
+        Ранг: <%= @info[3] %><br/><br/>
+        Деньги: <%= @info[4] %> рё
+    </h3>
+  </td>
+  <td style="width: 300px;">
+    <h3>
+        Отношение: <%= @info[5] %><br/><br/>
+        Биджу: <%= @info[6] %><br/><br/>
+        Кеккей-Генкай: <%= @info[7] %><br/><br/>
+        Напарник: <%= @info[8] %>
+    </h3>
+  </td>
+</table>
+<br/>
+<h3>Мои болезни:</h3>
+<p>Каждые 24 часа все болезни обнуляются, поэтому, если вы не хотите тратить деньги на лечение - просто ждите!</p>
+<img src="<%= HOST %>/images/disease_head.png"/>
+<% if @diseases != nil %>
+    <% @diseases.each do |problem| %>
+        <% problem = problem.split('(-)')[0] %>
+        <div style="background: url('<%= HOST %>/images/disease_place.png'); max-width: 908px; height: 94px; margin-top: -10px; margin-bottom: -10px;">
+          <h4 style="color: #000000;"><%= problem.split('***')[0] %></h4>
+          <p style="padding-left: 5px; color: #000000;"><%= problem.split('***')[1] %></p>
+        </div>
+    <% end %>
+    <% if @diseases.size < 5 %>
+        <% (5-@diseases.size).times do %>
+            <img src="<%= HOST %>/images/disease_place.png"/>
+        <% end %>
+    <% end %>
+<% else %>
+    <% 5.times do %>
+        <img src="<%= HOST %>/images/disease_place.png"/>
+    <% end %>
+<% end %>
+<img src="<%= HOST %>/images/disease_tail.png"/>

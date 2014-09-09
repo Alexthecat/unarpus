@@ -1,0 +1,52 @@
+<% num = 0 %>
+<% @text.each do |l| %>
+    <div style="float: left; background: #000; display: inline-block; text-align: left; margin: 10px; width: 95%; min-height: 160px; border: 1px solid #ffffff;">
+      <% if @authorized && (admin? || request.params[:directory] == 'character_creation') || request.params[:directory] == 'djutsu' %>
+          <div style="float: right; text-align: left; margin-right: 5px;">
+            <% if @base %>
+                <a href="<%= HOST %>/forum/create-dir">Добавить подраздел</a>
+            <% else %>
+                <a href="<%= HOST %>/forum/create">Добавить тему</a>
+            <% end %>
+          </div>
+      <% end %>
+      <div style="width: 100%; height: 50px; margin: 5px 10px 0px 10px;">
+        <h3><%= l.split('*:*')[0] %> <%= request.params[:land] %></h3>
+      </div>
+      <div style="width: 100%; min-height: 100px; margin: -10px 10px 10px 10px; padding-left: 5px;">
+        <table style="width: 96%;">
+        <% l.split('*:*')[1].split('(-)').each do |theme| %>
+            <% num +=1 %>
+            <tr>
+            <td>
+              <p style="font-size: 12pt;">
+                <% if theme.split('***')[0].split('/')[1] != '#' %>
+                    <a href="<%= HOST %>/forum/<%= theme.split('***')[0] %>"><%= theme.split('***')[1] %></a>
+                <% else %>
+                    <%= theme.split('***')[1] %>
+                <% end %>
+              </p>
+            </td>
+              <% if admin? && theme.split('***')[0].include?('/') %>
+                <td>
+                  <p style="text-align: right; margin-right: 5px;">
+                    <a href="<%="#{HOST}/forum/#{theme.split('***')[0]}/#{URI::encode(theme.split('***')[1])}/delete"%>">
+                      <img src="http://s1.iconbird.com/ico/2013/10/464/w512h5121380984637delete1.png" style="width: 20px;"/>
+                    </a>
+                  </p>
+                </td>
+              <% elsif admin? %>
+                <td>
+                  <p style="text-align: right; margin-right: 5px;">
+                    <a href="<%="#{HOST}/forum/#{theme.split('***')[0]}/#{URI::encode(theme.split('***')[1])}/delete"%>">
+                      <img src="http://s1.iconbird.com/ico/2013/10/464/w512h5121380984637delete1.png" style="width: 20px;"/>
+                    </a>
+                  </p>
+                </td>
+              <% end %>
+            </tr>
+        <% end %>
+        </table>
+      </div>
+    </div>
+<% end %>

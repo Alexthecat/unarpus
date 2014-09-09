@@ -1,0 +1,48 @@
+<h1>Добро пожаловать в универсальную Больницу!</h1>
+<p style="text-align: left; margin-left: 10px; margin-right: 10px;">
+  Только у нас, вы можете полностью исцелиться от любых ранений, пришить свои конечности и даже вставить себе обычные глаза!<br/>
+  Для этого, выберите процедуру ниже и ваше здоровье будет восстановлено. (Свои показатели вы можете увидеть в слева)<br/>
+  <span style="color:#ff0000;">Важно!</span> Время лечения - от 5 минут, до 3 часов. В это время, вы не можете передвигаться по миру ролевой.<br/>
+  P.S. Если вы будете замечены в нарушении этого закона - Ваш персонаж будет заблокирован на неопределнный срок.<br/><br/><br/>
+  Ваш баланс: <%= logged_in? ? (@money):(0) %> рё<br/>
+</p>
+<form action="" method="POST">
+    <select size="5" style="width: 60%;" multiple name="kind">
+      <option disabled>Выберите вид лечения</option>
+      <option value="small">Царапины (75 рё - 10%)</option>
+      <option selected value="medium">Кровоточащие ранения и большие шрамы (300 рё - 40%)</option>
+      <option value="disease">Излечить одно(случайное) заболевание, полностью (350 рё)</option>
+      <option value="big">Сквозные отверстия и потеря конечности (600 рё - 100%)</option>
+      <option value="enormous">Полное восстановление, пересадка глаз (1000 рё - 100% + глаза)</option>
+    </select>
+    <br/>
+    <input type="submit" value="Начать лечение!">
+</form>
+<% if logged_in? %>
+    <h1>Карточка больного</h1>
+    <p style="text-align: left; margin-left: 10px; margin-right: 10px;">
+        Что это? - Спросите вы. Это - Ваша личная карточка, здесь будут отображены (или уже отображаются) все ваши заболевания,
+        которые вы могли подхватить не только в ресторане, но и в бою. Зачем нам это нужно - спросите вы теперь. Благодаря этой карточке,
+        в игре появится больше реализма, появится еще один способ с пользой потратить заработанное!<br/><br/><br/>
+    </p>
+    <img src="<%= HOST %>/images/disease_head.png"/>
+    <% if @diseases != nil %>
+        <% @diseases.each do |problem| %>
+            <% problem = problem.split('(-)')[0] %>
+            <div style="background: url('<%= HOST %>/images/disease_place.png'); max-width: 908px; height: 94px; margin-top: -10px; margin-bottom: -10px;">
+                <h4 style="color: #000000;"><%= problem.split('***')[0] %></h4>
+                <p style="padding-left: 5px; color: #000000;"><%= problem.split('***')[1] %></p>
+            </div>
+        <% end %>
+        <% if @diseases.size < 5 %>
+            <% (5-@diseases.size).times do %>
+                <img src="<%= HOST %>/images/disease_place.png"/>
+            <% end %>
+        <% end %>
+    <% else %>
+        <% 10.times do %>
+            <img src="<%= HOST %>/images/disease_place.png"/>
+        <% end %>
+    <% end %>
+    <img src="<%= HOST %>/images/disease_tail.png"/>
+<% end %>

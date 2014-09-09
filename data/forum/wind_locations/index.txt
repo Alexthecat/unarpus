@@ -1,0 +1,1 @@
+локации ветра*:*wind_locations/City_of_fountains***Город фонтанов(-)wind_locations/Eastern_desert***Восточная пустыня(-)wind_locations/Takeda_temple_ruins***Руины храма Такеды(-)wind_locations/Great_oasis***Великий оазис(-)wind_locations/City_of_sand_nomads***Город пустынных кочевников

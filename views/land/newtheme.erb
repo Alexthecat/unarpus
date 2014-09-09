@@ -1,0 +1,17 @@
+<h3>Создание новой темы!</h3>
+<form action="" method="POST">
+  <input name="name" style="width: 60%;" type="text" placeholder="Название новой темы"><br/>
+  <input name="link" style="width: 60%;" type="text" placeholder="Название темы транслитом (будет ссылкой в URL)"><br/>
+  <% if @authorized && admin? %>
+      <% @directories.each do |dir| %>
+          <input type="radio" name="where" value="<%= dir.split('/')[3] %>"> <%= to_rus_name(dir) %><br/><br/>
+      <% end %>
+  <% else %>
+      <% @directories.each do |dir| %>
+          <% if dir.split('/')[3] != 'common' && dir.split('/')[3] != 'community' %>
+              <input type="radio" name="where" value="<%= dir.split('/')[3] %>"> <%= to_rus_name(dir) %><br/><br/>
+          <% end %>
+      <% end %>
+  <% end %>
+  <input type="submit" value="Отправить!">
+</form>

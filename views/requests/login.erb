@@ -1,0 +1,7 @@
+<h1>Форма авторизации:</h1>
+<h3><span style="color: ff0000;"><%= @error %></span></h3>
+<form action="<%= HOST %>/login" method="POST">
+  <input name="login" type="text" placeholder="Логин">
+  <input name="password" type="password" placeholder="Пароль">
+  <input type="submit" value="Войти!">
+</form>

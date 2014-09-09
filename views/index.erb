@@ -1,0 +1,9 @@
+<% if admin? && request.params[:file_name].nil? %>
+    <br/><div style="float: right; text-align: left;"><a href="<%= "#{HOST}/new" %>">Новая запись</a></div><br/>
+<% end %>
+<div style="float: left; text-align: left; margin: 10px;">
+    <% @text.reverse.each do |line| %>
+      <h3><%= line.split('*:*')[0] %></h3>
+      <%= line.split('*:*')[1].gsub('|||', '<br/>') %>
+  <% end %>
+</div>

@@ -1,0 +1,1 @@
+локации огня*:*fire_locations/Forbidden_forest***Запретный лес(-)fire_locations/Western_forest***Западный лес(-)fire_locations/Hi_No_Terra_Temple***Храм Хи Но Терра(-)fire_locations/Byakugan_temple_ruins***Руины храма бьякугана(-)fire_locations/Tea_village***Деревня чая(-)fire_locations/Mount_Myoboku***Гора Мёбоку
